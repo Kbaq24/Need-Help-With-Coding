@@ -1,0 +1,23 @@
+secureflame-game/
+├── index.html
+├── js/
+│   ├── main.js
+│   ├── Level1.js
+│   ├── Level2.js
+│   ├── Level3.js
+│   ├── Level4.js
+│   ├── Level5.js
+├── assets/
+│   ├── background1.png
+│   ├── background2.png
+│   ├── background3.png
+│   ├── background4.png
+│   ├── background5.png
+│   ├── bgMusic1.mp3
+│   ├── bgMusic2.mp3
+│   ├── bgMusic3.mp3
+│   ├── bgMusic4.mp3
+│   ├── bgMusic5.mp3
+│   ├── success.mp3
+│   ├── failure.mp3
+│   ├── hint.mp3

@@ -1,0 +1,24 @@
+firewall-game/
+├── assets/            # Contains images, sounds, and other assets
+│   ├── background1.png
+│   ├── background2.png
+│   ├── background3.png
+│   ├── background4.png
+│   ├── background5.png
+│   ├── bgMusic1.mp3
+│   ├── bgMusic2.mp3
+│   ├── bgMusic3.mp3
+│   ├── bgMusic4.mp3
+│   ├── bgMusic5.mp3
+│   ├── success.mp3
+│   ├── failure.mp3
+│   ├── hint.mp3
+├── js/
+│   ├── main.js        # Main game logic
+│   ├── Level1.js      # Level 1 logic
+│   ├── Level2.js      # Level 2 logic
+│   ├── Level3.js      # Level 3 logic
+│   ├── Level4.js      # Level 4 logic
+│   ├── Level5.js      # Level 5 logic
+├── index.html         # HTML file for the game
+└── style.css          # Optional CSS for styling (if necessary)
