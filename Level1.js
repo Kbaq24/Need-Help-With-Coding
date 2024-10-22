@@ -1,57 +1,66 @@
 export default class Level1 extends Phaser.Scene {
     constructor() {
-        super({ key: 'Level1' });
-        this.failedAttempts = 0;
-        this.hintShown = false;
+        super('Level1');
     }
 
     preload() {
         this.load.image('background', 'assets/background1.png');
-        this.load.audio('bgMusic', 'assets/bgMusic1.mp3');
-        this.load.audio('success', 'assets/success.mp3');
-        this.load.audio('failure', 'assets/failure.mp3');
-        this.load.audio('hint', 'assets/hint.mp3');
     }
 
     create() {
         this.add.image(400, 300, 'background');
-        this.bgMusic = this.sound.add('bgMusic', { loop: true });
-        this.bgMusic.play();
+        this.story = [
+            "The Barrier of Flames is under attack! Repair it.",
+            "Unauthorized traffic detected. Block it.",
+            "Inspect firewall integrity for vulnerabilities."
+        ];
 
-        let storyText = this.add.text(100, 100, 'Level 1: Install Firewall and Block Incoming Traffic.', { fontSize: '20px', fill: '#fff' });
+        this.currentStep = 0;
+        this.showStory(this.story[this.currentStep]);
 
-        let installButton = this.add.text(100, 200, 'Install Firewall', { fontSize: '24px', fill: '#0f0' })
-            .setInteractive()
-            .on('pointerdown', () => this.handleSuccess());
+        this.choices = [
+            { text: 'Repair the Firewall', correct: true },
+            { text: 'Block Unauthorized Traffic', correct: false },
+            { text: 'Inspect Firewall Integrity', correct: false }
+        ];
 
-        let blockButton = this.add.text(100, 300, 'Block Incoming Traffic', { fontSize: '24px', fill: '#f00' })
-            .setInteractive()
-            .on('pointerdown', () => this.handleFailure());
+        this.showChoices();
     }
 
-    handleSuccess() {
-        this.sound.play('success');
-        this.add.text(100, 400, 'Firewall Installed and Traffic Blocked!', { fontSize: '18px', fill: '#0f0' });
-        this.bgMusic.stop();
-        this.time.delayedCall(2000, () => {
-            this.scene.start('Level2');
+    showStory(text) {
+        document.getElementById('storyText').style.display = 'block';
+        document.getElementById('storyText').innerText = text;
+    }
+
+    showChoices() {
+        this.choices = Phaser.Utils.Array.Shuffle(this.choices);
+        let y = 450;
+        this.choices.forEach(choice => {
+            let text = this.add.text(400, y, choice.text, { fill: choice.correct ? '#00FF00' : '#FF0000' })
+                .setInteractive()
+                .on('pointerdown', () => this.handleChoice(choice));
+            y += 50;
         });
     }
 
-    handleFailure() {
-        this.failedAttempts++;
-        this.sound.play('failure');
-        this.add.text(100, 400, 'Incorrect! Try again.', { fontSize: '18px', fill: '#f00' });
-
-        if (this.failedAttempts >= 3 && !this.hintShown) {
-            this.showHint();
+    handleChoice(choice) {
+        if (choice.correct) {
+            this.currentStep++;
+            if (this.currentStep < this.story.length) {
+                this.showStory(this.story[this.currentStep]);
+                this.clearChoices();
+                this.showChoices();
+            } else {
+                this.scene.start('Level2');
+            }
+        } else {
+            document.getElementById('feedbackText').innerText = "Incorrect! Try again.";
         }
     }
 
-    showHint() {
-        this.hintShown = true;
-        this.sound.play('hint');
-        this.add.text(100, 450, 'Hint: Block incoming traffic to protect the network.', { fontSize: '18px', fill: '#ff0' });
+    clearChoices() {
+        this.children.getAll('text').forEach(child => child.destroy());
     }
 }
+
 
