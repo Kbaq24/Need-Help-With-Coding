@@ -16,3 +16,8 @@ let config = {
 };
 
 let game = new Phaser.Game(config);
+
+document.getElementById("startButton").addEventListener("click", function () {
+    this.classList.add("hidden");
+    game.scene.start('Level1');
+});
