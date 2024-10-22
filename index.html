@@ -3,15 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecureFlame Game!</title>
+    <title>SecureFlame Game</title>
+    <link rel="stylesheet" href="style.css"> <!-- Ensure your CSS is linked here -->
+    <!-- Load the Phaser library -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script> <!-- Correct Phaser CDN -->
 </head>
 <body>
     <div id="gameContainer"></div>
 
-    <!-- Phaser.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
-    
-    <!-- Link to the main game script -->
-    <script type="module" src="main.js"></script>
+    <!-- Start button -->
+    <button id="startGameBtn" onclick="startGame()">Start Game</button>
+
+    <!-- Main game script -->
+    <script type="module" src="main.js"></script> <!-- Ensure this points to your main script -->
+
+    <script>
+        // Function to hide start button after game starts
+        function startGame() {
+            document.getElementById('startGameBtn').style.display = 'none'; // Hide start button
+            // Now start your Phaser game
+            const game = new Phaser.Game(config); // Assuming your main.js config object is correct
+        }
+    </script>
 </body>
 </html>
+
